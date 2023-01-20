@@ -12,9 +12,12 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title class="text-weight-bold text-secondary">
+        <q-toolbar-title class="text-weight-bold gt-sm text-secondary">
           Inicio
         </q-toolbar-title>
+
+        <q-icon class="q-pa-md header-icon lt-md" name="fas fa-dove" size="sm" color="secondary" />
+
       </q-toolbar>
     </q-header>
 
@@ -26,26 +29,38 @@
       side="left"
       bordered
       :width="275"
+      class="q-pl-md q-pr-md"
     >
       <q-icon class="q-pa-md" name="fas fa-dove" size="lg" color="secondary" />
 
       <q-list>
-        <q-item to="/" clickable v-ripple>
+        <q-item 
+          to="/" 
+          clickable
+          v-ripple
+          active-class="simon"
+          exact
+        >
           <q-item-section avatar>
             <q-icon color="secondary" name="home" size="md" />
           </q-item-section>
 
-          <q-item-section class="text-h6 text-secondary text-weight-bold"
+          <q-item-section class="text-h6 text-secondary"
             >Inicio</q-item-section
           >
         </q-item>
 
-        <q-item to="/about" clickable v-ripple>
+        <q-item
+          to="/about"
+          active-class="simon"
+          clickable v-ripple 
+          exact
+        >
           <q-item-section avatar>
             <q-icon color="secondary" name="help" size="md" />
           </q-item-section>
 
-          <q-item-section class="text-h6 text-secondary text-weight-bold"
+          <q-item-section class="text-h6 text-secondary"
             >About</q-item-section
           >
         </q-item>
@@ -74,25 +89,55 @@
         </template>
       </q-input>
 
-      <q-list dense padding dark class="rounded-borders bg-accent">
-        <q-item v-ripple>
-          <q-item-section>Single line item</q-item-section>
+      <q-list padding dark class="rounded-borders bg-accent q-ma-md">
+        <q-item class="q-pa-md" clickable>
+          <q-item-section>
+            <q-item-label 
+              overline
+              class="text-grey">
+                Premier League
+            </q-item-label>
+            <q-item-label class="text-weight-bold">Manchester City vs Tottenham Hotspur</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-item-label class="text-grey" caption>Ayer</q-item-label>
+          </q-item-section>
         </q-item>
 
-        <q-item clickable>
+        <q-item class="q-pa-md" clickable>
           <q-item-section>
-            <q-item-label overline>OVERLINE</q-item-label>
-            <q-item-label>Single line item</q-item-label>
-            <q-item-label caption
-              >Secondary line text. Lorem ipsum dolor sit amet, consectetur
-              adipiscit elit.</q-item-label
+            <q-item-label 
+              overline
+              class="text-grey">
+                Tendencias en Argentina
+            </q-item-label>
+            <q-item-label class="text-weight-bold">Flow</q-item-label>
+            <q-item-label caption class="text-grey"
+              >57,3 mil Tweets</q-item-label
             >
           </q-item-section>
 
           <q-item-section side top>
-            <q-item-label caption>5 min ago</q-item-label>
           </q-item-section>
-        </q-item>
+        </q-item>   
+
+        <q-item class="q-pa-md" clickable>
+          <q-item-section>
+            <q-item-label 
+              overline
+              class="text-grey">
+                Tendencias
+            </q-item-label>
+            <q-item-label class="text-weight-bold">ChatGPT</q-item-label>
+            <q-item-label caption class="text-grey"
+              >64,6 mil Tweets</q-item-label
+            >
+          </q-item-section>
+
+          <q-item-section side top>
+          </q-item-section>
+        </q-item>              
       </q-list>
     </q-drawer>
 
@@ -124,3 +169,15 @@ export default {
   },
 };
 </script>
+
+<style lang="sass">
+.header-icon
+  position: absolute
+  bottom: 0
+  left: 50%
+  transform: translateX(-50%)
+
+.simon
+  q-item-section
+    background: red
+</style>
