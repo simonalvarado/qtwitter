@@ -38,29 +38,29 @@
           to="/" 
           clickable
           v-ripple
-          active-class="simon"
           exact
+          active-class="active"
         >
           <q-item-section avatar>
-            <q-icon color="secondary" name="home" size="md" />
+            <q-icon class="active-container" color="secondary" name="home" size="md" />
           </q-item-section>
 
-          <q-item-section class="text-h6 text-secondary"
+          <q-item-section class="text-h6 active-container text-secondary"
             >Inicio</q-item-section
           >
         </q-item>
 
         <q-item
           to="/about"
-          active-class="simon"
+          active-class="active"
           clickable v-ripple 
           exact
         >
           <q-item-section avatar>
-            <q-icon color="secondary" name="help" size="md" />
+            <q-icon class="active-container" color="secondary" name="help" size="md" />
           </q-item-section>
 
-          <q-item-section class="text-h6 text-secondary"
+          <q-item-section class="text-h6 active-container text-secondary"
             >About</q-item-section
           >
         </q-item>
@@ -177,7 +177,7 @@ export default {
   left: 50%
   transform: translateX(-50%)
 
-.simon
-  q-item-section
-    background: red
+.active
+  .active-container
+    font-weight: bold
 </style>
