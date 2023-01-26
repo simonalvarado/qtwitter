@@ -13,11 +13,15 @@
         />
 
         <q-toolbar-title class="text-weight-bold gt-sm text-secondary">
-          Inicio
+          <span>{{$route.name}}</span>
         </q-toolbar-title>
 
-        <q-icon class="q-pa-md header-icon lt-md" name="fas fa-dove" size="sm" color="secondary" />
-
+        <q-icon
+          class="q-pa-md header-icon lt-md"
+          name="fas fa-dove"
+          size="sm"
+          color="secondary"
+        />
       </q-toolbar>
     </q-header>
 
@@ -34,15 +38,14 @@
       <q-icon class="q-pa-md" name="fas fa-dove" size="lg" color="secondary" />
 
       <q-list>
-        <q-item 
-          to="/" 
-          clickable
-          v-ripple
-          exact
-          active-class="active"
-        >
+        <q-item to="/" clickable v-ripple exact active-class="active">
           <q-item-section avatar>
-            <q-icon class="active-container" color="secondary" name="home" size="md" />
+            <q-icon
+              class="active-container"
+              color="secondary"
+              name="home"
+              size="md"
+            />
           </q-item-section>
 
           <q-item-section class="text-h6 active-container text-secondary"
@@ -50,14 +53,14 @@
           >
         </q-item>
 
-        <q-item
-          to="/about"
-          active-class="active"
-          clickable v-ripple 
-          exact
-        >
+        <q-item to="/about" active-class="active" clickable v-ripple exact>
           <q-item-section avatar>
-            <q-icon class="active-container" color="secondary" name="help" size="md" />
+            <q-icon
+              class="active-container"
+              color="secondary"
+              name="help"
+              size="md"
+            />
           </q-item-section>
 
           <q-item-section class="text-h6 active-container text-secondary"
@@ -92,12 +95,12 @@
       <q-list padding dark class="rounded-borders bg-accent q-ma-md">
         <q-item class="q-pa-md" clickable>
           <q-item-section>
-            <q-item-label 
-              overline
-              class="text-grey">
-                Premier League
+            <q-item-label overline class="text-grey">
+              Premier League
             </q-item-label>
-            <q-item-label class="text-weight-bold">Manchester City vs Tottenham Hotspur</q-item-label>
+            <q-item-label class="text-weight-bold"
+              >Manchester City vs Tottenham Hotspur</q-item-label
+            >
           </q-item-section>
 
           <q-item-section side top>
@@ -107,10 +110,8 @@
 
         <q-item class="q-pa-md" clickable>
           <q-item-section>
-            <q-item-label 
-              overline
-              class="text-grey">
-                Tendencias en Argentina
+            <q-item-label overline class="text-grey">
+              Tendencias en Argentina
             </q-item-label>
             <q-item-label class="text-weight-bold">Flow</q-item-label>
             <q-item-label caption class="text-grey"
@@ -118,26 +119,20 @@
             >
           </q-item-section>
 
-          <q-item-section side top>
-          </q-item-section>
-        </q-item>   
+          <q-item-section side top> </q-item-section>
+        </q-item>
 
         <q-item class="q-pa-md" clickable>
           <q-item-section>
-            <q-item-label 
-              overline
-              class="text-grey">
-                Tendencias
-            </q-item-label>
+            <q-item-label overline class="text-grey"> Tendencias </q-item-label>
             <q-item-label class="text-weight-bold">ChatGPT</q-item-label>
             <q-item-label caption class="text-grey"
               >64,6 mil Tweets</q-item-label
             >
           </q-item-section>
 
-          <q-item-section side top>
-          </q-item-section>
-        </q-item>              
+          <q-item-section side top> </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
