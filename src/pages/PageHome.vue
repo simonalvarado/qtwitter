@@ -1,30 +1,36 @@
 <template>
   <q-page>
-      <q-input dark bottom-slots v-model="text" label="Label" counter maxlength="12" :dense="dense">
+    <div class="q-py-lg q-px-md">
+      <q-input
+        dark
+        bottom-slots
+        v-model="newQweetContent"
+        placeholder="¿Qué está pasando?"
+        counter
+        maxlength="280"
+        :dense="dense"
+      >
         <template v-slot:before>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/img/avatar5.jpg">
+            <img src="https://cdn.quasar.dev/img/avatar5.jpg" />
           </q-avatar>
-        </template>
-
-        <template v-slot:append>
-          <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-          <q-icon name="schedule" />
-        </template>
-
-        <template v-slot:hint>
-          Field hint
         </template>
 
         <template v-slot:after>
           <q-btn round dense flat icon="send" />
         </template>
       </q-input>
+    </div>
   </q-page>
 </template>
 
 <script>
 export default {
   name: "PageHome",
+  data() {
+    return {
+      newQweetContent: ''
+    }
+  }
 };
 </script>
