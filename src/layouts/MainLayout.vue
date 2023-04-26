@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHr lpR fFf">
+  <q-layout class="bg-primary" view="lHr lpR fFf">
     <!-- header con el inicio y el menu de hamburguesa -->
     <q-header bordered class="bg-primary text-white">
       <q-toolbar>
