@@ -33,7 +33,7 @@
       side="left"
       bordered
       :width="275"
-      class="q-pl-md q-pr-md"
+      class="q-pl-md q-pr-md drawer-left"
     >
       <q-icon class="q-pa-md" name="fas fa-dove" size="lg" color="secondary" />
 
@@ -72,6 +72,7 @@
 
     <!-- Drawer de la derecha -->
     <q-drawer
+      class="drawer-right"
       dark
       show-if-above
       v-model="rightDrawerOpen"
@@ -171,6 +172,15 @@ export default {
   bottom: 0
   left: 50%
   transform: translateX(-50%)
+
+.q-header
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28)
+
+.drawer-right
+  border-left: 1px solid rgba(255, 255, 255, 0.28)
+
+.drawer-left
+  border-right: 1px solid rgba(255, 255, 255, 0.28)
 
 .active
   .active-container
