@@ -4,7 +4,7 @@
     <q-header bordered class="bg-primary text-white">
       <q-toolbar>
         <q-btn
-          class="text-secondary"
+          class="text-secondary lt-sm"
           dense
           flat
           round
