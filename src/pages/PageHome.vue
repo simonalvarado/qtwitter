@@ -118,7 +118,7 @@
 
 <script>
 import db from '../boot/firebase'
-import { collection, query, onSnapshot, orderBy } from 'firebase/firestore'
+import { collection, query, onSnapshot, orderBy, addDoc, doc, deleteDoc } from 'firebase/firestore'
 
 export default {
   name: "PageHome",
@@ -131,10 +131,12 @@ export default {
     };
   },
   mounted() {
+    //local state changes for when there is an update in cloud data, in this way all change are live
     const q = query(collection(db, "qweets"), orderBy("date"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       snapshot.docChanges().forEach((change) => {
         let qweetChange = change.doc.data();
+        qweetChange.id = change.doc.id;
         if (change.type === "added") {
             console.log("New qweet: ", change.doc.data());
             this.qweets.unshift(qweetChange)
@@ -144,6 +146,8 @@ export default {
         }
         if (change.type === "removed") {
             console.log("Removed qweet: ", change.doc.data());
+            let index = this.qweets.findIndex(qweet => qweet.id === qweetChange.id)
+            this.qweets.splice(index, 1)
         }
       });
     });
@@ -166,21 +170,18 @@ export default {
       }
     },
     newQweet() {
-      let newQweet = {
-        id: this.qweets.length + 1,
+    const docRef = addDoc(collection(db, "qweets"), {
         username: "Simon no",
         handle: "simonalvarado",
         content: this.newQweetContent,
         date: Date.now(),
         avatar: "https://pbs.twimg.com/profile_images/1415466062770999296/YVthEL37_400x400.jpg",
-      };
-      this.qweets.unshift(newQweet);
+      });
+      console.log("Document written with ID: ", docRef.id);
       this.newQweetContent = "";
     },
     deleteQweet(qweet) {
-      let idToDelete = qweet.id;
-      let index = this.qweets.findIndex(qweet => qweet.id === idToDelete);
-      this.qweets.splice(index, 1);
+      deleteDoc(doc(db, "qweets", qweet.id));
     },
   },
 };
