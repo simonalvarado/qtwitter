@@ -98,7 +98,14 @@
               <div class="row justify-between qweet-icons">
                 <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
                 <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
-                <q-btn color="grey" icon="fas fa-heart" size="sm" flat round />
+                <q-btn 
+                  :color="qweet.liked ? 'pink' : 'grey'" 
+                  :icon="qweet.liked ? 'fas fa-heart' : 'far fa-heart'"
+                  size="sm" 
+                  flat 
+                  round
+                  @click="toggleLike(qweet)"
+                />
                 <q-btn
                   color="grey"
                   icon="fas fa-trash"
@@ -118,7 +125,7 @@
 
 <script>
 import db from '../boot/firebase'
-import { collection, query, onSnapshot, orderBy, addDoc, doc, deleteDoc } from 'firebase/firestore'
+import { collection, query, onSnapshot, orderBy, addDoc, doc, deleteDoc, updateDoc } from 'firebase/firestore'
 
 export default {
   name: "PageHome",
@@ -143,6 +150,8 @@ export default {
         }
         if (change.type === "modified") {
             console.log("Modified qweet: ", change.doc.data());
+            let index = this.qweets.findIndex(qweet => qweet.id === qweetChange.id)
+            Object.assign(this.qweets[index], qweetChange)
         }
         if (change.type === "removed") {
             console.log("Removed qweet: ", change.doc.data());
@@ -176,6 +185,7 @@ export default {
         content: this.newQweetContent,
         date: Date.now(),
         avatar: "https://pbs.twimg.com/profile_images/1415466062770999296/YVthEL37_400x400.jpg",
+        liked: false,
       });
       console.log("Document written with ID: ", docRef.id);
       this.newQweetContent = "";
@@ -183,6 +193,11 @@ export default {
     deleteQweet(qweet) {
       deleteDoc(doc(db, "qweets", qweet.id));
     },
+    toggleLike(qweet) {
+      updateDoc(doc(db, "qweets", qweet.id), {
+        liked: !qweet.liked
+      });
+    }
   },
 };
 </script>
