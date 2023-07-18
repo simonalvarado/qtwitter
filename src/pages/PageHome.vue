@@ -1,124 +1,124 @@
 <template>
     <q-page class="relative-position">
       <q-scroll-area class="absolute fullscreen">
-      <div class="q-py-md q-px-md row items-end q-col-gutter-md">
-        <div class="col">
-          <q-input
-            dark
-            bottom-slots
-            v-model="newQweetContent"
-            class="new-qweet-input"
-            placeholder="¿Qué está pasando?"
-            counter
-            autogrow
-            input-class="input-placeholder-text"
-            maxlength="280"
-            :dense="dense"
-          >
-            <template v-slot:before>
-              <q-avatar size="48px">
-                <img
-                  src="https://pbs.twimg.com/profile_images/1415466062770999296/YVthEL37_400x400.jpg"
-                />
-              </q-avatar>
-            </template>
-          </q-input>
+        <div class="q-py-md q-px-md row items-end q-col-gutter-md">
+          <div class="col">
+            <q-input
+              dark
+              bottom-slots
+              v-model="newQweetContent"
+              class="new-qweet-input"
+              placeholder="¿Qué está pasando?"
+              counter
+              autogrow
+              input-class="input-placeholder-text"
+              maxlength="280"
+              :dense="dense"
+            >
+              <template v-slot:before>
+                <q-avatar size="48px">
+                  <img
+                    src="https://pbs.twimg.com/profile_images/1415466062770999296/YVthEL37_400x400.jpg"
+                  />
+                </q-avatar>
+              </template>
+            </q-input>
+          </div>
+          <div class="col-shrink">
+            <q-btn
+              @click="newQweet"
+              unelevated
+              rounded
+              no-caps
+              :disable="!newQweetContent"
+              class="q-mb-lg"
+              color="blue"
+              label="Twittear"
+            />
+          </div>
         </div>
-        <div class="col-shrink">
-          <q-btn
-            @click="newQweet"
-            unelevated
-            rounded
-            no-caps
-            :disable="!newQweetContent"
-            class="q-mb-lg"
-            color="blue"
-            label="Twittear"
-          />
-        </div>
-      </div>
 
-      <q-separator dark />
+        <q-separator dark />
 
-      <q-list 
-        separator 
-        dark
-      >
-        <transition-group
-          appear
-          enter-active-class="animated fadeIn slow"
-          leave-active-class="animated fadeOut slow"
+        <q-list 
+          separator 
+          dark
         >
-          <q-item 
-            v-for="qweet in qweets"
-            :key="qweet.id"
+          <transition-group
+            appear
+            enter-active-class="animated fadeIn slow"
+            leave-active-class="animated fadeOut slow"
           >
-            <q-item-section class="q-pt-sm" top avatar>
-              <q-avatar size="48px">
-                <img
-                  :src="qweet.avatar"
-                />
-              </q-avatar>
-            </q-item-section>
+            <q-item 
+              v-for="qweet in qweets"
+              :key="qweet.id"
+            >
+              <q-item-section class="q-pt-sm" top avatar>
+                <q-avatar size="48px">
+                  <img
+                    :src="qweet.avatar"
+                  />
+                </q-avatar>
+              </q-item-section>
 
-            <q-item-section class="q-pt-sm">
-              <div class="q-pb-xs row">
-                <div class="col-xs-shrink col-sm-shrink">
-                  <q-item-label
-                    class="text-weight-bold text-subtitle1 qweet-username q-fs-15"
-                    lines="1"
-                    >{{ qweet.username }}</q-item-label
-                  >
+              <q-item-section class="q-pt-sm">
+                <div class="q-pb-xs row">
+                  <div class="col-xs-shrink col-sm-shrink">
+                    <q-item-label
+                      class="text-weight-bold text-subtitle1 qweet-username q-fs-15"
+                      lines="1"
+                      >{{ qweet.username }}</q-item-label
+                    >
+                  </div>
+                  <div class="col-xs-shrink col-sm-shrink q-pl-sm">
+                    <q-item-label
+                      class="text-body1 text-grey text-weight-light qweet-username q-fs-15"
+                      lines="1"
+                      >@{{ qweet.handle }}</q-item-label
+                    >
+                  </div>
+                  <div class="col-sm-shrink">
+                    <q-item-label
+                      class="q-pl-sm q-pr-sm text-body1 text-grey text-weight-light q-fs-15"
+                      lines="1"
+                      >·</q-item-label
+                    >
+                  </div>
+                  <div class="col-sm-shrink">
+                    <q-item-label
+                      class="text-body1 text-grey text-weight-light q-fs-15"
+                      lines="1"
+                      >{{ formatTime(qweet.date) }}</q-item-label
+                    >
+                  </div>
                 </div>
-                <div class="col-xs-shrink col-sm-shrink q-pl-sm">
-                  <q-item-label
-                    class="text-body1 text-grey text-weight-light qweet-username q-fs-15"
-                    lines="1"
-                    >@{{ qweet.handle }}</q-item-label
-                  >
+                <q-item-label class="q-fs-15 q-pb-sm content-wrap">
+                  {{ qweet.content }}
+                </q-item-label>
+                <div class="row justify-between qweet-icons">
+                  <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
+                  <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
+                  <q-btn 
+                    :color="qweet.liked ? 'pink' : 'grey'" 
+                    :icon="qweet.liked ? 'fas fa-heart' : 'far fa-heart'"
+                    size="sm" 
+                    flat 
+                    round
+                    @click="toggleLike(qweet)"
+                  />
+                  <q-btn
+                    color="grey"
+                    icon="fas fa-trash"
+                    size="sm"
+                    flat
+                    round
+                    @click="deleteQweet(qweet)"
+                  />
                 </div>
-                <div class="col-sm-shrink">
-                  <q-item-label
-                    class="q-pl-sm q-pr-sm text-body1 text-grey text-weight-light q-fs-15"
-                    lines="1"
-                    >·</q-item-label
-                  >
-                </div>
-                <div class="col-sm-shrink">
-                  <q-item-label
-                    class="text-body1 text-grey text-weight-light q-fs-15"
-                    lines="1"
-                    >{{ formatTime(qweet.date) }}</q-item-label
-                  >
-                </div>
-              </div>
-              <q-item-label class="q-fs-15 q-pb-sm content-wrap">
-                {{ qweet.content }}
-              </q-item-label>
-              <div class="row justify-between qweet-icons">
-                <q-btn color="grey" icon="far fa-comment" size="sm" flat round />
-                <q-btn color="grey" icon="fas fa-retweet" size="sm" flat round />
-                <q-btn 
-                  :color="qweet.liked ? 'pink' : 'grey'" 
-                  :icon="qweet.liked ? 'fas fa-heart' : 'far fa-heart'"
-                  size="sm" 
-                  flat 
-                  round
-                  @click="toggleLike(qweet)"
-                />
-                <q-btn
-                  color="grey"
-                  icon="fas fa-trash"
-                  size="sm"
-                  flat
-                  round
-                  @click="deleteQweet(qweet)"
-                />
-              </div>
-            </q-item-section>
-          </q-item>
-        </transition-group>
-      </q-list>
+              </q-item-section>
+            </q-item>
+          </transition-group>
+        </q-list>
       </q-scroll-area>
     </q-page>
 </template>
@@ -230,5 +230,13 @@ export default {
 
 .qweet-icons {
   margin-left: -5px;
+}
+
+.fullscreen{
+  z-index: 0;
+}
+
+.q-scrollarea__content{
+  max-width:100%;
 }
 </style>
